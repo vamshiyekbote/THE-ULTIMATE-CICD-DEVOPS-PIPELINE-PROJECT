@@ -1,0 +1,3 @@
+Permission for grafana:	chmod +x install_grafana.py
+
+You can then run the script using:	./install_grafana.py
