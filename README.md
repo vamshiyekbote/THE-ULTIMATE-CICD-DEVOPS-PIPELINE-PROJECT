@@ -142,8 +142,7 @@ kubectl apply -f https://docs.projectcalico.org/v3.20/manifests/calico.yaml
 
 **10. Deploy Ingress Controller (NGINX) [On MasterNode]**
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-
-nginx/controller-v0.49.0/deploy/static/provider/baremetal/deploy.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.49.0/deploy/static/provider/baremetal/deploy.yaml
 
 ### Installing Jenkins on Ubuntu
 
