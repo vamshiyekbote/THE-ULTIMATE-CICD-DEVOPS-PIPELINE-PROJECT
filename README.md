@@ -536,7 +536,7 @@ Configure Above Plugins in Jenkins
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/jaiswaladi246/Boardgame.git'
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/vamshiyekbote/Boardgame.git'
             }
         }
 
@@ -594,7 +594,7 @@ Configure Above Plugins in Jenkins
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker build -t adijaiswal/boardshack:latest ."
+                        sh "docker build -t vamshiyekbote/boardgame:latest ."
                     }
                 }
             }
@@ -602,7 +602,7 @@ Configure Above Plugins in Jenkins
 
         stage('Docker Image Scan') {
             steps {
-                sh "trivy image --format table -o trivy-image-report.html adijaiswal/boardshack:latest "
+                sh "trivy image --format table -o trivy-image-report.html vamshiyekbote/boardgame:latest "
             }
         }
 
@@ -610,7 +610,7 @@ Configure Above Plugins in Jenkins
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push adijaiswal/boardshack:latest"
+                        sh "docker push vamshiyekbote/boardgame:latest"
                     }
                 }
             }
@@ -618,7 +618,7 @@ Configure Above Plugins in Jenkins
 
         stage('Deploy To Kubernetes') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.8.146:6443') {
+                withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://13.234.186.104:6443') {
                     sh "kubectl apply -f deployment-service.yaml"
                 }
             }
@@ -626,7 +626,7 @@ Configure Above Plugins in Jenkins
 
         stage('Verify the Deployment') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.8.146:6443') {
+                withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://13.234.186.104:6443') {
                     sh "kubectl get pods -n webapps"
                     sh "kubectl get svc -n webapps"
                 }
@@ -657,7 +657,7 @@ Configure Above Plugins in Jenkins
                 emailext(
                     subject: "${jobName} - Build ${buildNumber} - ${pipelineStatus.toUpperCase()}",
                     body: body,
-                    to: 'jaiswaladi246@gmail.com',
+                    to: 'vamshiyekbote1@gmail.com',
                     from: 'jenkins@example.com',
                     replyTo: 'jenkins@example.com',
                     mimeType: 'text/html',
